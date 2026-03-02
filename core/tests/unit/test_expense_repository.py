@@ -74,7 +74,7 @@ def test_get_by_id_returns_none_if_not_found():
     """
     repo = InMemoryExpenseRepository()
     repo.save(create_expense(id=1))
-    result = repo.get_by_id(98)  
+    result = repo.get_by_id(98)
     assert result is None
 
     ...

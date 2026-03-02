@@ -55,9 +55,11 @@ def check_expenses_length(context, expenses):
     total = len(context["db"]._expenses)
     assert expenses == total
 
+
 @then(parsers.parse("hace que el total sean {total:d} euros"))
 def check_total_alt(context, total):
     assert context["service"].total_amount() == total
+
 
 @then(parsers.parse("la suma son {total:d} euros"))
 def check_total_sum(context, total):

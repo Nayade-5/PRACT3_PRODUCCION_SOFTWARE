@@ -82,7 +82,7 @@ def test_create_multiple_expenses_and_list():
     """
     Verifica que el servicio permite crear múltiples gastos y que estos se almacenan y recuperan correctamente mediante el método list_expenses.
     """
-    
+
     service = create_service()
     service.create_expense("Pan", 3, "Mercado", date.today())
     service.create_expense("Leche", 4, "Supermercado", date.today())
@@ -96,7 +96,7 @@ def test_remove_expense_reduces_total():
     """
     Evalúa el comportamiento del sistema al eliminar un gasto existente.
     """
-    
+
     service = create_service()
     service.create_expense("Libro", 10, "", date.today())
     service.create_expense("Revista", 5, "", date.today())
@@ -115,7 +115,7 @@ def test_update_expense_partial_fields():
     """
     Comprueba que al actualizar parcialmente un gasto solo cambian los campos especificados y el resto permanece igual.
     """
-    
+
     service = create_service()
     service.create_expense("Camiseta", 15, "Ropa", date.today())
     service.update_expense(expense_id=1, amount=18)

@@ -32,18 +32,30 @@ def test_negative_amount_raises_error():
     genera la excepción específica InvalidAmountError definida en domain_error.py.
     """
     invalid_amount = -5
-    
+
     with pytest.raises(InvalidAmountError):
-        Expense(id=1, title="Gasto inválido", amount=invalid_amount, description="Prueba de importe negativo", expense_date=date.today())
+        Expense(
+            id=1,
+            title="Gasto inválido",
+            amount=invalid_amount,
+            description="Prueba de importe negativo",
+            expense_date=date.today(),
+        )
 
 
 def test_future_date_raises_error():
     """
-    Prueba que al intentar crear un objeto Expense con una fecha futura 
+    Prueba que al intentar crear un objeto Expense con una fecha futura
     se lanza InvalidExpenseDateError
     """
     future_date = date.today() + timedelta(days=1)
 
     with pytest.raises(InvalidExpenseDateError):
-        Expense(id=1, title="Gasto con fecha futura", amount=50, description="Prueba de fecha futura no permitida", expense_date=future_date)
+        Expense(
+            id=1,
+            title="Gasto con fecha futura",
+            amount=50,
+            description="Prueba de fecha futura no permitida",
+            expense_date=future_date,
+        )
     ...
