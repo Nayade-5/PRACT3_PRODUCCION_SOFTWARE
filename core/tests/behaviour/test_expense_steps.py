@@ -4,6 +4,7 @@ from pytest_bdd import scenarios, given, when, then, parsers
 
 from core.expense_service import ExpenseService
 from core.in_memory_expense_repository import InMemoryExpenseRepository
+from core.domain_error import InvalidAmountError
 
 scenarios("./expense_management.feature")
 
@@ -37,6 +38,35 @@ def add_expense(context, amount, title):
 @when(parsers.parse("elimino el gasto con id {expense_id:d}"))
 def remove_expense(context, expense_id):
     context["service"].remove_expense(expense_id)
+
+
+@when(
+    parsers.parse(
+        "intento añadir un gasto negativo de {amount:d} euros llamado {title}"
+    )
+)
+def try_add_negative_expense(context, amount, title):
+    try:
+        context["service"].create_expense(
+            title=title, amount=amount, description="", expense_date=date.today()
+        )
+    except InvalidAmountError:
+        pass
+
+
+@when(parsers.parse("intento borrar un id inexistente como el {expense_id:d}"))
+def try_remove_non_existent_expense(context, expense_id):
+    try:
+        context["service"].remove_expense(expense_id)
+    except Exception:
+        pass
+
+
+@when(parsers.parse("registro un gasto gratuito de {amount:d} euros llamado {title}"))
+def add_free_expense(context, amount, title):
+    context["service"].create_expense(
+        title=title, amount=amount, description="", expense_date=date.today()
+    )
 
 
 @then(parsers.parse("el total de dinero gastado debe ser {total:d} euros"))
